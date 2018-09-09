@@ -5,7 +5,15 @@ const csInterface = new CSInterface();
 const openButton = document.querySelector(".btn");
 openButton.addEventListener("click", runJSX);
 
+
+
 /* 3) Write a helper function to pass instructions to the ExtendScript side. */
 function runJSX() {
-  csInterface.evalScript("createOverlays()");
+  var episodeNum = document.querySelector("#episodeNum").value;
+  var call = `createOverlays("${episodeNum}")`;
+  csInterface.evalScript(call);
+}
+
+function cb(result){
+  alert(result)
 }

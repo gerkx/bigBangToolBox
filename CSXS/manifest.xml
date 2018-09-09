@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	Version="6.0"
-	ExtensionBundleId="com.bigbangbox.splitter"
+	ExtensionBundleId="com.bigbangbox.shotSupers"
 	ExtensionBundleVersion="0.1.0"
-	ExtensionBundleName="Splitter">
+	ExtensionBundleName="shotSupers">
 
 	<ExtensionList>
-		<Extension Id="com.bigbangbox.splitter.panel" Version="0.1.0" />
+		<Extension Id="com.bigbangbox.shotSupers.panel" Version="0.1.0" />
 	</ExtensionList>
 
 	<ExecutionEnvironment>
@@ -22,7 +22,7 @@
 	</ExecutionEnvironment>
 
 	<DispatchInfoList>
-		<Extension Id="com.bigbangbox.splitter.panel">
+		<Extension Id="com.bigbangbox.shotSupers.panel">
 			<DispatchInfo>
 				<Resources>
 					<MainPath>./index.html</MainPath>
@@ -37,7 +37,7 @@
 				</Lifecycle>
 				<UI>
 					<Type>Panel</Type>
-					<Menu>Splitter</Menu>
+					<Menu>Shot Supers</Menu>
 					<Geometry>
 						<Size>
 							<Height>300</Height>

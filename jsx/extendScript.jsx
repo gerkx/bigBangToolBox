@@ -1,6 +1,7 @@
-function createOverlays() {
+function createOverlays(str) {
     const seq = app.project.activeSequence;
     const markers = markersToArray(seq.markers);
+
 
 
     var filterString = "";
@@ -8,27 +9,35 @@ function createOverlays() {
         filterString = "Motion Graphics Templates:*.mogrt";
     }
     var mogrtToImport = File.openDialog (
-        "Choose MoGRT", // title
+        "Choose a template file", // title
         filterString,  // filter available files? 
         false
     );	
-    
-    var targetTime = markers[0].start;
-    var vidTrackOffset = 0;
-    var audTrackOffset = 0;
-    var newTrackItem = seq.importMGT(	
-        mogrtToImport.fsName, 
-        targetTime.ticks, 
-        vidTrackOffset,
-        audTrackOffset
-    );
 
-    var moComp = newTrackItem.getMGTComponent();
-    var params = moComp.properties;
-    var srcTextParam = params.getParamForDisplayName("Source Text");
-    var val	= srcTextParam.getValue();
-    srcTextParam.setValue("New value set by PProPanel!");
-    
+    if (mogrtToImport){
+        var targetTime = markers[0].start;
+        var vidTrackOffset = 1;
+        var audTrackOffset = 0;
+        var newTrackItem = seq.importMGT(	
+            mogrtToImport.fsName, 
+            targetTime.ticks, 
+            vidTrackOffset,
+            audTrackOffset
+        );
+
+        if (newTrackItem){
+            newTrackItem.end = markers[1].start;
+            var moComp = newTrackItem.getMGTComponent();
+            if (moComp){
+                var params = moComp.properties;
+                var srcTextParam = params.getParamForDisplayName("txt");
+                if (srcTextParam){
+                    var val	= srcTextParam.getValue();
+                    srcTextParam.setValue(str);
+                }
+            }
+        }
+    }
 
 }
 
