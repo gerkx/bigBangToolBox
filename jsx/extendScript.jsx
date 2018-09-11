@@ -28,11 +28,13 @@ function createOverlays(str) {
         if (newTrackItem){
             newTrackItem.end = markers[1].start;
             var moComp = newTrackItem.getMGTComponent();
+
+
+            var params = moComp.properties;
             if (moComp){
-                var params = moComp.properties;
+                
                 var srcTextParam = params.getParamForDisplayName("txt");
                 if (srcTextParam){
-                    var val	= srcTextParam.getValue();
                     srcTextParam.setValue(str);
                 }
             }

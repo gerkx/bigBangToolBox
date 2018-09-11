@@ -11,10 +11,24 @@
 		<script src="./lib/CSInterface.js"></script>
 	<body>
 		<div class="container">
-			<button class="btn" >Beep</button> 
-		</div>
-		<div class="input">
-			<input type="text" name="episodeNum" id="episodeNum">
+			<form class="input">
+
+				<label for="progNombre">Programa:</label>
+				<input type="text" name="progNombre" id="progNombre" placeholder="MPM">
+
+				<label for="tempNum">Temporada:</label>
+				<input type="number" name="tempNum" id="tempNum" placeholder="1">
+
+				<label for="epiNum">Número de episodio:</label>
+				<input type="number" name="epiNum" id="epiNum">
+				
+				<label for="secNum">Número de secuencia:</label>
+				<input type="number" name="secNum" id="secNum" placeholder="1">
+
+				<button class="btn" >Hacer sobrepuestos</button>
+
+			</form>
+
 		</div>
 				
 		<script type="text/javascript" src="./lib/CSInterface.js"></script>
