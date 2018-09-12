@@ -18,7 +18,7 @@ function runJSX() {
 
   var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum, 4)}_SH_`;
 
-  alert(str);
+  // alert(str);
 
   var fnCall = `createOverlays("${str}")`;
   csInterface.evalScript(fnCall);
