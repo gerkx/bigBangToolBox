@@ -2,7 +2,6 @@ function createOverlays(str) {
     var seq = app.project.activeSequence;
     var markers = markersToArray(seq.markers);
     var relMarkers = relativeMarkers(seq, markers);
-    alert(seq.getOutPointAsTime())
 
     var filterString = "";
     if (Folder.fs === 'Windows'){
@@ -19,7 +18,7 @@ function createOverlays(str) {
         if (mogrtToImport) {
             var shot = str + padZero((1+i)*10, 4);
             var targetTime = relMarkers[i].start;
-            var vidTrackOffset = 1;
+            var vidTrackOffset = 4;
             var audTrackOffset = 0;
             var newTrackItem = seq.importMGT(	
                 mogrtToImport.fsName, 
@@ -28,7 +27,7 @@ function createOverlays(str) {
                 audTrackOffset
             );
             if (newTrackItem){
-                (i == relMarkers.length -1 ) 
+                (i == relMarkers.length - 1) 
                     ? newTrackItem.end = seq.getOutPointAsTime()
                     : newTrackItem.end = relMarkers[i + 1].start;
                 var moComp = newTrackItem.getMGTComponent();
@@ -81,8 +80,12 @@ function relativeMarkers(seq, markers) {
         if (markers[i].start.seconds > outPoint) afterOut.push(i);
     }
 
-    var sliceStart = beforeIn[0] + 1;
-    var sliceEnd = afterOut[0];
+    var sliceStart;
+    var sliceEnd;
+    (beforeIn.length < 1) ? sliceStart = 0 : sliceStart = beforeIn[0] + 1;
+    (afterOut.length < 1) ? sliceEnd = markers.length - 1 : sliceEnd = afterOut[0];
+
+
     var relevantMarkers = markers.slice(sliceStart, sliceEnd);
 
     return relevantMarkers

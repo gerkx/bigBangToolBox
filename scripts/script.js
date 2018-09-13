@@ -16,7 +16,7 @@ function runJSX() {
 
   if(!epiNum) alert("Introduzca el número de episodio, por favor");
 
-  var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH_`;
+  var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH`;
 
   // alert(str);
 
