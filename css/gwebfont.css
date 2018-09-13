@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Montserrat'), local('OpenSans'), url(../files/fonts/Montserrat-Regular.WOFF) format('woff');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  @font-face {
+    font-family: 'Montserrat-Light';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Montserrat'), local('OpenSans'), url(../files/fonts/Montserrat-Light.WOFF) format('woff');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+  }

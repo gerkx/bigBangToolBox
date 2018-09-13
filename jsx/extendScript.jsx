@@ -16,6 +16,7 @@ function createOverlays(str) {
             
     for (var i = 0; i < relMarkers.length; i++) {
         if (mogrtToImport) {
+            
             var shot = str + padZero((1+i)*10, 4);
             var targetTime = relMarkers[i].start;
             var vidTrackOffset = 4;
@@ -30,18 +31,20 @@ function createOverlays(str) {
                 (i == relMarkers.length - 1) 
                     ? newTrackItem.end = seq.getOutPointAsTime()
                     : newTrackItem.end = relMarkers[i + 1].start;
+                var shotDur = Math.round(
+                    (newTrackItem.end.seconds - newTrackItem.start.seconds) * 25
+                );
                 var moComp = newTrackItem.getMGTComponent();
                 var params = moComp.properties;
                 if (moComp) { 
                     var srcTextParam = params.getParamForDisplayName("txt");
-                    if (srcTextParam) srcTextParam.setValue(shot);
+                    var srcDurParam = params.getParamForDisplayName("dur");
+                    if (srcTextParam) srcTextParam.setValue(shot);                    
+                    if (srcDurParam) srcDurParam.setValue(shotDur);
                 }
-            
             }
-            
         }
     }
-
 }
 
 

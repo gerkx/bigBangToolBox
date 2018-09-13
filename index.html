@@ -8,24 +8,34 @@
 		<meta charset="utf-8">
 		<title>Boop</title>
 		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="./css/gwebfont.css">
 		<script src="./lib/CSInterface.js"></script>
 	<body>
 		<div class="container">
 			<form class="input">
+				<div class="input-block">
+					<label class="label" for="progNombre">Prog:</label>
+					<input type="text" name="progNombre" id="progNombre" placeholder="MPM">
+				</div>
 
-				<label for="progNombre">Programa:</label>
-				<input type="text" name="progNombre" id="progNombre" placeholder="MPM">
-
-				<label for="tempNum">Temporada:</label>
-				<input type="number" name="tempNum" id="tempNum" placeholder="1">
-
-				<label for="epiNum">Número de episodio:</label>
-				<input type="number" name="epiNum" id="epiNum">
+				<div class="input-block">
+						<label class="label" for="tempNum">Temp:</label>
+						<input type="number" name="tempNum" id="tempNum" placeholder="1">
+				</div>
 				
-				<label for="secNum">Número de secuencia:</label>
-				<input type="number" name="secNum" id="secNum" placeholder="1">
-
-				<button class="btn" >Shot Supers</button>
+				<div class="input-block">
+						<label class="label" for="epiNum">Epi:</label>
+						<input type="number" name="epiNum" id="epiNum">
+				</div>
+				
+				<div class="input-block">
+					<label class="label" for="secNum">Sec:</label>
+					<input type="number" name="secNum" id="secNum" placeholder="1">
+				</div>
+				<div class="button-box">
+					<button class="btn" >Shot Supers</button>
+				</div>
+				
 
 			</form>
 
