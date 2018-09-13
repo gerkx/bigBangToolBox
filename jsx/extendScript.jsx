@@ -1,36 +1,24 @@
 function createOverlays(str) {
-    const seq = app.project.activeSequence;
-    const markers = markersToArray(seq.markers);
-
-    // var inPoint = seq.getInPoint();
-    // var outPoint = seq.getOutPoint();
-    // var beforeIn = [];
-    // var afterOut = [];
-
-    // for (var i = 0; i < markers.length; i ++) {
-    //     if (markers[i].start.seconds < inPoint) beforeIn.push(i);
-    //     if (markers[i].start.seconds > outPoint) afterOut.push(i);
-    // }
-
-    // markers.splice(beforeIn[0], beforeIn.length);
-    // markers.splice(afterOut[0], afterOut.length);
-
+    var seq = app.project.activeSequence;
+    var markers = markersToArray(seq.markers);
+    var relMarkers = relativeMarkers(seq, markers);
+    alert(seq.getOutPointAsTime())
 
     var filterString = "";
     if (Folder.fs === 'Windows'){
         filterString = "Motion Graphics Templates:*.mogrt";
     }
+
     var mogrtToImport = File.openDialog (
         "Choose a template file", // title
-        filterString,  // filter available files? 
+        filterString,  // filter available files
         false
     );	
             
-    for (var i = 0; i < markers.length-1; i++) {
-        var shot = padZero((1+i)*10, 4);
-        var itemStr = str + shot;
+    for (var i = 0; i < relMarkers.length; i++) {
         if (mogrtToImport) {
-            var targetTime = markers[i].start;
+            var shot = str + padZero((1+i)*10, 4);
+            var targetTime = relMarkers[i].start;
             var vidTrackOffset = 1;
             var audTrackOffset = 0;
             var newTrackItem = seq.importMGT(	
@@ -40,14 +28,14 @@ function createOverlays(str) {
                 audTrackOffset
             );
             if (newTrackItem){
-                // alert(markers[i].start.seconds)
-                // newTrackItem.start = markers[i].start;
-                newTrackItem.end = markers[i + 1].start;
+                (i == relMarkers.length -1 ) 
+                    ? newTrackItem.end = seq.getOutPointAsTime()
+                    : newTrackItem.end = relMarkers[i + 1].start;
                 var moComp = newTrackItem.getMGTComponent();
                 var params = moComp.properties;
                 if (moComp) { 
                     var srcTextParam = params.getParamForDisplayName("txt");
-                    if (srcTextParam) srcTextParam.setValue(itemStr);
+                    if (srcTextParam) srcTextParam.setValue(shot);
                 }
             
             }
@@ -79,4 +67,23 @@ function padZero(num, zeros) {
       num = "0" + num;
     }
     return num
+  }
+
+function relativeMarkers(seq, markers) {
+    var inPoint = seq.getInPoint();
+    var outPoint = seq.getOutPoint();
+
+    var beforeIn = [];
+    var afterOut = [];
+
+    for (var i = 0; i < markers.length; i ++) {
+        if (markers[i].start.seconds < inPoint) beforeIn.unshift(i);
+        if (markers[i].start.seconds > outPoint) afterOut.push(i);
+    }
+
+    var sliceStart = beforeIn[0] + 1;
+    var sliceEnd = afterOut[0];
+    var relevantMarkers = markers.slice(sliceStart, sliceEnd);
+
+    return relevantMarkers
   }
