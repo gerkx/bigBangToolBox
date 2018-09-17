@@ -47,6 +47,73 @@ function createOverlays(str) {
     }
 }
 
+function getSep() {
+    if(Folder.fs == 'Macintosh'){
+        return '/';
+    }else{
+        return '\\';
+    }
+}
+
+
+function renderSection(str) {
+    app.enableQE(); 
+
+    app.encoder.setSidecarXMPEnabled(0);
+    app.encoder.setEmbeddedXMPEnabled(0);
+                        
+    var activeSequence = qe.project.getActiveSequence();
+
+    var seq = app.project.activeSequence;
+    var markers = markersToArray(seq.markers);
+    var relMarkers = relativeMarkers(seq, markers);
+    var origIn = seq.getInPointAsTime();
+    var origOut = seq.getOutPointAsTime();
+    
+    var outputPresetPath = "C:\\Users\\Hookie\\Documents\\Adobe\\Adobe Media Encoder\\12.0\\Presets\\derp.epr"
+    // var projPath	= new File(app.project.path);
+    var outputPath  = Folder.selectDialog("Choose the output directory");
+    // var outputPath  = "C:\\Users\\Hookie\\Downloads\\boop";
+    if (outputPath){
+        var outPreset = new File(outputPresetPath);
+        if (outPreset.exists === true){
+            var outputFormatExtension =	activeSequence.getExportFileExtension(outPreset.fsName);
+            if (outputFormatExtension){
+                for (var i = 0; i < relMarkers.length; i++) {
+                    var shot = str + padZero((1+i)*10, 4);
+                    var outputFilename = activeSequence.name + '.' + outputFormatExtension;
+                    var fullPathToFile = outputPath.fsName + getSep() + shot + "." + outputFormatExtension;
+                    
+                    var inPt = relMarkers[i].start.ticks;
+                    var outPt;
+                    
+                    (i == relMarkers.length - 1) 
+                        ? outPt = origOut.ticks
+                        : outPt = relMarkers[i + 1].start.ticks;
+
+                    seq.setInPoint(inPt);
+                    seq.setOutPoint(outPt);
+
+                    var jobID = app.encoder.encodeSequence(app.project.activeSequence,
+                        fullPathToFile,
+                        outPreset.fsName,
+                        1, 
+                        1);
+                    outPreset.close()
+
+
+                }
+            }
+
+        }
+
+
+    }
+    app.encoder.startBatch();
+    seq.setInPoint(origIn);
+    seq.setOutPoint(origOut);
+}
+
 
 function markersToArray(markerObject) {
     var markerArr = [];

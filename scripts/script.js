@@ -2,26 +2,44 @@
 const csInterface = new CSInterface();
 
 /* 2) Make a reference to your HTML button and add a click handler. */
-const openButton = document.querySelector(".btn");
-openButton.addEventListener("click", runJSX);
+const shotSupers = document.querySelector("#shotSupersBtn");
+const exportShots = document.querySelector("#exportShotsBtn");
+shotSupers.addEventListener("click", executeSupers);
+exportShots.addEventListener("click", executeExport);
 
-
-
-/* 3) Write a helper function to pass instructions to the ExtendScript side. */
-function runJSX() {
+function executeExport() {
   var progNombre = document.querySelector("#progNombre").value || "MPM";
   var tempNum = document.querySelector("#tempNum").value || 1;
   var epiNum = document.querySelector("#epiNum").value;
   var secNum = document.querySelector("#secNum").value || 1;
 
-  if(!epiNum) alert("Introduzca el número de episodio, por favor");
+  if(!epiNum) {
+    alert("Introduzca el número de episodio, por favor");
+  }else{
+    var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH`;
+    var fnCall = `renderSection("${str}")`;
+    csInterface.evalScript(fnCall);
+  }
 
-  var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH`;
+}
 
-  // alert(str);
+/* 3) Write a helper function to pass instructions to the ExtendScript side. */
+function executeSupers() {
+  var progNombre = document.querySelector("#progNombre").value || "MPM";
+  var tempNum = document.querySelector("#tempNum").value || 1;
+  var epiNum = document.querySelector("#epiNum").value;
+  var secNum = document.querySelector("#secNum").value || 1;
 
-  var fnCall = `createOverlays("${str}")`;
-  csInterface.evalScript(fnCall);
+  if(!epiNum) {
+    alert("Introduzca el número de episodio, por favor");
+  }else{
+    var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH`;
+    var fnCall = `createOverlays("${str}")`;
+    csInterface.evalScript(fnCall);
+  }
+
+
+
 }
 
 function multTen(num){
