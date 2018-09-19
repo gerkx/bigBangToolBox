@@ -12,25 +12,25 @@
 		<script src="./lib/CSInterface.js"></script>
 	<body>
 		<div class="container">
-			<form class="input">
+			<form>
 				<div class="input-block">
-					<label class="label" for="progNombre">Prog:</label>
-					<input type="text" name="progNombre" id="progNombre" placeholder="MPM">
+					<label class="input-block__label" for="progNombre">Prog:</label>
+					<input type="text" class="input-block__field" name="progNombre" id="progNombre" placeholder="MPM">
 				</div>
 
 				<div class="input-block">
-						<label class="label" for="tempNum">Temp:</label>
-						<input type="number" name="tempNum" id="tempNum" placeholder="1">
+						<label class="input-block__label" for="tempNum">Temp:</label>
+						<input type="number" class="input-block__field" name="tempNum" id="tempNum" placeholder="1">
 				</div>
 				
 				<div class="input-block">
-						<label class="label" for="epiNum">Epi:</label>
-						<input type="number" name="epiNum" id="epiNum">
+						<label class="input-block__label" for="epiNum">Epi:</label>
+						<input type="number" class="input-block__field" name="epiNum" id="epiNum" placeholder="Número">
 				</div>
 				
 				<div class="input-block">
-					<label class="label" for="secNum">Sec:</label>
-					<input type="number" name="secNum" id="secNum" placeholder="1">
+					<label class="input-block__label" for="secNum">Sec:</label>
+					<input type="number" class="input-block__field" name="secNum" id="secNum" placeholder="1">
 				</div>
 				<div class="button-box">
 					<button class="btn" id="shotSupersBtn" >Shot Supers</button>
@@ -38,6 +38,10 @@
 
 				<div class="button-box">
 					<button class="btn" id="exportShotsBtn" >Export</button>
+				</div>
+
+				<div class="button-box">
+					<button class="btn" id="trk" >trk</button>
 				</div>
 				
 

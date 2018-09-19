@@ -1,3 +1,9 @@
+function getTrk() {
+    var seq = app.project.activeSequence;
+    return seq.videoTracks.numTracks;
+}
+
+
 function createOverlays(str) {
     var seq = app.project.activeSequence;
     var markers = markersToArray(seq.markers);
@@ -40,7 +46,7 @@ function createOverlays(str) {
                     var srcTextParam = params.getParamForDisplayName("txt");
                     var srcDurParam = params.getParamForDisplayName("dur");
                     if (srcTextParam) srcTextParam.setValue(shot);                    
-                    if (srcDurParam) srcDurParam.setValue(shotDur);
+                    if (srcDurParam) srcDurParam.setValue(padZero(shotDur, 3));
                 }
             }
         }
@@ -70,7 +76,7 @@ function renderSection(str) {
     var origIn = seq.getInPointAsTime();
     var origOut = seq.getOutPointAsTime();
     
-    var outputPresetPath = "C:\\Users\\Hookie\\Documents\\Adobe\\Adobe Media Encoder\\12.0\\Presets\\derp.epr"
+    var outputPresetPath = "C:\\Users\\ptger\\Documents\\Adobe\\Adobe Media Encoder\\12.0\\Presets\\QT_DNxHD_RGB444_10bit.epr"
     // var projPath	= new File(app.project.path);
     var outputPath  = Folder.selectDialog("Choose the output directory");
     // var outputPath  = "C:\\Users\\Hookie\\Downloads\\boop";

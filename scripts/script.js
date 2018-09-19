@@ -4,8 +4,14 @@ const csInterface = new CSInterface();
 /* 2) Make a reference to your HTML button and add a click handler. */
 const shotSupers = document.querySelector("#shotSupersBtn");
 const exportShots = document.querySelector("#exportShotsBtn");
+const trk = document.querySelector("#trk");
 shotSupers.addEventListener("click", executeSupers);
 exportShots.addEventListener("click", executeExport);
+trk.addEventListener("click", trkFn);
+
+function trkFn() {
+  csInterface.evalScript('getTrk()', rcvInfo);
+}
 
 function executeExport() {
   var progNombre = document.querySelector("#progNombre").value || "MPM";
@@ -52,4 +58,8 @@ function padZero(num, zeros){
     num = "0" + num;
   }
   return num
+}
+
+function rcvInfo(res) {
+  alert(res)
 }
