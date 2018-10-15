@@ -144,7 +144,7 @@ function markersToObj(markerObj) {
         var obj = {
             shot: i+1,
             start: markerArr[i].start,
-            end: markerArr[i + 1].end,
+            end: markerArr[i + 1].start,
         }
         markerLib.push(obj);
     }
@@ -184,5 +184,6 @@ function relevantMarkers(seq, markers) {
             relMarkers.push(mk);
         }
     }
+    // alert(relMarkers.length);
     return relMarkers
   }
