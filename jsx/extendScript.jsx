@@ -1,13 +1,18 @@
-function getTrk() {
+  function getTrk() {
     var seq = app.project.activeSequence;
     return seq.videoTracks.numTracks;
 }
 
 
 function createOverlays(str) {
+    var prog = str.prog;
+    var temp = padZero(str.temp, 2);
+    var epi = padZero(str.epi, 2);
+    var tempEpi = "S"+temp+"E"+epi;
+    
     var seq = app.project.activeSequence;
-    var markers = markersToArray(seq.markers);
-    var relMarkers = relativeMarkers(seq, markers);
+    var markers = markersToObj(seq.markers);
+    var relMarkers = relevantMarkers(seq, markers);
 
     var filterString = "";
     if (Folder.fs === 'Windows'){
@@ -22,10 +27,14 @@ function createOverlays(str) {
             
     for (var i = 0; i < relMarkers.length; i++) {
         if (mogrtToImport) {
-            
-            var shot = str + padZero((1+i)*10, 4);
-            var targetTime = relMarkers[i].start;
-            var vidTrackOffset = 4;
+            var mk = relMarkers[i];
+            var us = "_";
+            var sqNum = (parseInt((mk.shot)/10) + 1) * 10;
+            var sq = "SQ"+padZero(sqNum, 4);
+            var shotNum = "SH"+padZero(mk.shot*10, 4);
+            var shot = prog + us + tempEpi + us + sq + us + shotNum;
+            var targetTime = mk.start;
+            var vidTrackOffset = str.pista -1;
             var audTrackOffset = 0;
             var newTrackItem = seq.importMGT(	
                 mogrtToImport.fsName, 
@@ -34,9 +43,8 @@ function createOverlays(str) {
                 audTrackOffset
             );
             if (newTrackItem){
-                (i == relMarkers.length - 1) 
-                    ? newTrackItem.end = seq.getOutPointAsTime()
-                    : newTrackItem.end = relMarkers[i + 1].start;
+                newTrackItem.end = mk.end;
+
                 var shotDur = Math.round(
                     (newTrackItem.end.seconds - newTrackItem.start.seconds) * 25
                 );
@@ -63,30 +71,39 @@ function getSep() {
 
 
 function renderSection(str) {
+    var prog = str.prog;
+    var temp = padZero(str.temp, 2);
+    var epi = padZero(str.epi, 2);
+    var tempEpi = "S"+temp+"E"+epi;
+
     app.enableQE(); 
-
     app.encoder.setSidecarXMPEnabled(0);
-    app.encoder.setEmbeddedXMPEnabled(0);
-                        
+    app.encoder.setEmbeddedXMPEnabled(0);                        
     var activeSequence = qe.project.getActiveSequence();
-
     var seq = app.project.activeSequence;
-    var markers = markersToArray(seq.markers);
-    var relMarkers = relativeMarkers(seq, markers);
+
+    var markers = markersToObj(seq.markers);
+    var relMarkers = relevantMarkers(seq, markers);
+
     var origIn = seq.getInPointAsTime();
     var origOut = seq.getOutPointAsTime();
     
     var outputPresetPath = "C:\\Users\\ptger\\Documents\\Adobe\\Adobe Media Encoder\\12.0\\Presets\\QT_DNxHD_RGB444_10bit.epr"
-    // var projPath	= new File(app.project.path);
     var outputPath  = Folder.selectDialog("Choose the output directory");
-    // var outputPath  = "C:\\Users\\Hookie\\Downloads\\boop";
+
     if (outputPath){
         var outPreset = new File(outputPresetPath);
         if (outPreset.exists === true){
             var outputFormatExtension =	activeSequence.getExportFileExtension(outPreset.fsName);
             if (outputFormatExtension){
                 for (var i = 0; i < relMarkers.length; i++) {
-                    var shot = str + padZero((1+i)*10, 4);
+
+                    var mk = relMarkers[i];
+                    var us = "_";
+                    var sqNum = (parseInt((mk.shot)/10) + 1) * 10;
+                    var sq = "SQ"+padZero(sqNum, 4);
+                    var shotNum = "SH"+padZero(mk.shot*10, 4);
+                    var shot = prog + us + tempEpi + us + sq + us + shotNum;
                     var outputFilename = activeSequence.name + '.' + outputFormatExtension;
                     var fullPathToFile = outputPath.fsName + getSep() + shot + "." + outputFormatExtension;
                     
@@ -120,6 +137,19 @@ function renderSection(str) {
     seq.setOutPoint(origOut);
 }
 
+function markersToObj(markerObj) {
+    markerArr = markersToArray(markerObj);
+    markerLib = [];
+    for(var i = 0; i < markerArr.length - 1; i++){
+        var obj = {
+            shot: i+1,
+            start: markerArr[i].start,
+            end: markerArr[i + 1].end,
+        }
+        markerLib.push(obj);
+    }
+    return markerLib;
+}
 
 function markersToArray(markerObject) {
     var markerArr = [];
@@ -144,25 +174,15 @@ function padZero(num, zeros) {
     return num
   }
 
-function relativeMarkers(seq, markers) {
+function relevantMarkers(seq, markers) {
     var inPoint = seq.getInPoint();
     var outPoint = seq.getOutPoint();
-
-    var beforeIn = [];
-    var afterOut = [];
-
-    for (var i = 0; i < markers.length; i ++) {
-        if (markers[i].start.seconds < inPoint) beforeIn.unshift(i);
-        if (markers[i].start.seconds > outPoint) afterOut.push(i);
+    var relMarkers = [];
+    for (var i = 0; i < markers.length; i++) {
+        var mk = markers[i]
+        if (mk.start.seconds >= inPoint && mk.start.seconds < outPoint) {
+            relMarkers.push(mk);
+        }
     }
-
-    var sliceStart;
-    var sliceEnd;
-    (beforeIn.length < 1) ? sliceStart = 0 : sliceStart = beforeIn[0] + 1;
-    (afterOut.length < 1) ? sliceEnd = markers.length - 1 : sliceEnd = afterOut[0];
-
-
-    var relevantMarkers = markers.slice(sliceStart, sliceEnd);
-
-    return relevantMarkers
+    return relMarkers
   }

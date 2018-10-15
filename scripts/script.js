@@ -1,3 +1,7 @@
+
+
+
+
 /* 1) Create an instance of CSInterface. */
 const csInterface = new CSInterface();
 
@@ -7,40 +11,59 @@ const exportShots = document.querySelector("#exportShotsBtn");
 const trk = document.querySelector("#trk");
 shotSupers.addEventListener("click", executeSupers);
 exportShots.addEventListener("click", executeExport);
-trk.addEventListener("click", trkFn);
+// trk.addEventListener("click", trkFn);
 
-function trkFn() {
-  csInterface.evalScript('getTrk()', rcvInfo);
-}
+// function trkFn() {
+//   csInterface.evalScript('getTrk()', rcvInfo);
+// }
+
+// function trkFn() {
+//   alert(parseInt(12/10)+1)
+// }
 
 function executeExport() {
   var progNombre = document.querySelector("#progNombre").value || "MPM";
   var tempNum = document.querySelector("#tempNum").value || 1;
   var epiNum = document.querySelector("#epiNum").value;
-  var secNum = document.querySelector("#secNum").value || 1;
+  var pistaNum = document.querySelector("#pistaNum").value || 4;
 
   if(!epiNum) {
     alert("Introduzca el número de episodio, por favor");
   }else{
-    var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH`;
-    var fnCall = `renderSection("${str}")`;
+    var obj = `{
+      prog: "${progNombre}",
+      temp: "${tempNum}",
+      epi: "${epiNum}",
+      pista: "${pistaNum}",
+    }`;
+
+    var fnCall = `renderSection(${obj})`;
+
     csInterface.evalScript(fnCall);
   }
-
 }
 
-/* 3) Write a helper function to pass instructions to the ExtendScript side. */
 function executeSupers() {
+
   var progNombre = document.querySelector("#progNombre").value || "MPM";
   var tempNum = document.querySelector("#tempNum").value || 1;
   var epiNum = document.querySelector("#epiNum").value;
-  var secNum = document.querySelector("#secNum").value || 1;
+  var pistaNum = document.querySelector("#pistaNum").value || 4;
+
+
 
   if(!epiNum) {
     alert("Introduzca el número de episodio, por favor");
   }else{
-    var str = `${progNombre}_S${padZero(tempNum, 2)}E${padZero(epiNum, 2)}_SQ${padZero(secNum * 10, 4)}_SH`;
-    var fnCall = `createOverlays("${str}")`;
+    var obj = `{
+      prog: "${progNombre}",
+      temp: "${tempNum}",
+      epi: "${epiNum}",
+      pista: "${pistaNum}",
+    }`;
+
+    var fnCall = `createOverlays(${obj})`;
+
     csInterface.evalScript(fnCall);
   }
 

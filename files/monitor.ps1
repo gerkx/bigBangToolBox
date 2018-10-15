@@ -24,6 +24,6 @@
 $interVids = Get-ChildItem *.mov -Recurse
 foreach ($inter in $interVids) {
     $name = $inter.BaseName
-    ffmpeg -i $inter.FullName -pix_fmt yuvj422p -vcodec mjpeg -acodec copy -f mov -y .\Planos_Epi001_Puzle_v002\$name.mov
+    ffmpeg -i $inter.FullName -pix_fmt yuvj422p -vcodec mjpeg -acodec copy -f mov -y .\Planos_Epi000_Intro_Bailes_v001\$name.mov
 }
 

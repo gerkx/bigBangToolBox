@@ -16,25 +16,24 @@ body {
 }
 
 .input-block {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     margin-bottom: 1rem;
-    display: flex;
-    justify-content: flex-start;
+    display: block;
     width: 100%;
 }
 
 .input-block__label{
     color: #b1b1b1;
-    text-align: right;
+    text-align: left;
     font-family: "Montserrat-Light", sans-serif;
     font-weight: 300;
-    font-size: .8rem;
-    padding-right: .5rem;
-    align-self: center;
-    width: 15%;
-    min-width: 1.5rem;
-    margin-right: .2rem;
-    flex-grow: 1;
+    font-size: 1rem;
+    padding-left: 1rem;
+    /* align-self: center; */
+    /* width: 15%; */
+    /* min-width: 1.5rem;
+    margin-right: .2rem; */
+    display: block;
 }
 
 .input-block__field {
@@ -46,9 +45,8 @@ body {
     font-weight: 300;
     background: #575757;
     color: white;
-    padding: .33rem .5rem;
+    padding: .5rem 1rem;
     border-radius: 10rem;
-    /* flex-grow: 2; */
     width: 85%;
 
 }
