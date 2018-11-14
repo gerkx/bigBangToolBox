@@ -6,9 +6,9 @@
 
 function createOverlays(str) {
     var prog = str.prog;
-    var temp = padZero(str.temp, 2);
+    var season = padZero(str.season, 2);
     var epi = padZero(str.epi, 2);
-    var tempEpi = "S"+temp+"E"+epi;
+    var seasonEpi = "S"+season+"E"+epi;
     
     var seq = app.project.activeSequence;
     var markers = markersToObj(seq.markers);
@@ -32,9 +32,9 @@ function createOverlays(str) {
             var sqNum = (parseInt((mk.shot)/10) + 1) * 10;
             var sq = "SQ"+padZero(sqNum, 4);
             var shotNum = "SH"+padZero(mk.shot*10, 4);
-            var shot = prog + us + tempEpi + us + sq + us + shotNum;
+            var shot = prog + us + seasonEpi + us + sq + us + shotNum;
             var targetTime = mk.start;
-            var vidTrackOffset = str.pista -1;
+            var vidTrackOffset = str.track -1;
             var audTrackOffset = 0;
             var newTrackItem = seq.importMGT(	
                 mogrtToImport.fsName, 
@@ -72,9 +72,9 @@ function getSep() {
 
 function renderSection(str) {
     var prog = str.prog;
-    var temp = padZero(str.temp, 2);
+    var season = padZero(str.season, 2);
     var epi = padZero(str.epi, 2);
-    var tempEpi = "S"+temp+"E"+epi;
+    var seasonEpi = "S"+season+"E"+epi;
 
     app.enableQE(); 
     app.encoder.setSidecarXMPEnabled(0);
@@ -103,7 +103,7 @@ function renderSection(str) {
                     var sqNum = (parseInt((mk.shot)/10) + 1) * 10;
                     var sq = "SQ"+padZero(sqNum, 4);
                     var shotNum = "SH"+padZero(mk.shot*10, 4);
-                    var shot = prog + us + tempEpi + us + sq + us + shotNum;
+                    var shot = prog + us + seasonEpi + us + sq + us + shotNum;
                     var outputFilename = activeSequence.name + '.' + outputFormatExtension;
                     var fullPathToFile = outputPath.fsName + getSep() + shot + "." + outputFormatExtension;
                     
