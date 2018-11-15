@@ -49,6 +49,8 @@ window.onload = function() {
   for (var key in prefs) {
     prefs[key].value = userPrefs[key];
     prefs[key].placeholder = prefs[key].value;
+    superInputs[key].value = userPrefs[key];
+    superInputs[key].placeholder = superInputs[key].value;
   }
 }
 
@@ -70,25 +72,30 @@ function updatePrefs() {
 // }
 
 function executeExport() {
-  var progNombre = document.querySelector("#progNombre").value || "MPM";
-  var tempNum = document.querySelector("#tempNum").value || 1;
-  var epiNum = document.querySelector("#epiNum").value;
-  var pistaNum = document.querySelector("#pistaNum").value || 4;
+  let supers = "{";
+  for(let key in superInputs) {
+    supers += `${key}: "${superInputs[key].value}",`;
+  }
+  supers += "}"
+  // var progNombre = document.querySelector("#progNombre").value || "MPM";
+  // var tempNum = document.querySelector("#tempNum").value || 1;
+  // var epiNum = document.querySelector("#epiNum").value;
+  // var pistaNum = document.querySelector("#pistaNum").value || 4;
 
-  if(!epiNum) {
-    alert("Introduzca el número de episodio, por favor");
-  }else{
-    var obj = `{
-      prog: "${progNombre}",
-      temp: "${tempNum}",
-      epi: "${epiNum}",
-      pista: "${pistaNum}",
-    }`;
+  // if(!epiNum) {
+  //   alert("Introduzca el número de episodio, por favor");
+  // }else{
+  //   var obj = `{
+  //     prog: "${progNombre}",
+  //     temp: "${tempNum}",
+  //     epi: "${epiNum}",
+  //     pista: "${pistaNum}",
+  //   }`;
 
-    var fnCall = `renderSection(${obj})`;
+    var fnCall = `renderSection(${supers})`;
 
     csInterface.evalScript(fnCall);
-  }
+  // }
 }
 
 function executeSupers() {
