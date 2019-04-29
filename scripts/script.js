@@ -32,6 +32,8 @@ const prefs = {
 
 
 
+
+
 //load prefs
 window.onload = function() {
   if(window.localStorage[prefKey]){
