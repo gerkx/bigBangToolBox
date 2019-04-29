@@ -88,7 +88,8 @@ function renderSection(str) {
     var origIn = seq.getInPointAsTime();
     var origOut = seq.getOutPointAsTime();
     
-    var outputPresetPath = "C:\\Users\\ptger\\Documents\\Adobe\\Adobe Media Encoder\\12.0\\Presets\\QT_DNxHD_RGB444_10bit.epr"
+    // var outputPresetPath = "C:\\Users\\ptger\\Documents\\Adobe\\Adobe Media Encoder\\12.0\\Presets\\QT_DNxHD_SQ.epr"
+    var outputPresetPath = "C:\\Users\\ptger\\Documents\\Adobe\\Adobe Media Encoder\\13.0\\Presets\\Apple ProRes Proxy multiCanal.epr"
     var outputPath  = Folder.selectDialog("Choose the output directory");
 
     if (outputPath){
@@ -132,7 +133,7 @@ function renderSection(str) {
 
 
     }
-    app.encoder.startBatch();
+    // app.encoder.startBatch();
     seq.setInPoint(origIn);
     seq.setOutPoint(origOut);
 }

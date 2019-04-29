@@ -122,7 +122,7 @@ function executeSupers() {
   //   }`;
 
     var fnCall = `createOverlays(${supers})`;
-    alert(fnCall)
+    // alert(fnCall)
     csInterface.evalScript(fnCall);
   // }
 
