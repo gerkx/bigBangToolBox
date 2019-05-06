@@ -3,6 +3,9 @@
     return seq.videoTracks.numTracks;
 }
 
+function getPrefs() {
+    alert(app.getPProPrefPath)
+}
 
 function createOverlays(str) {
     var prog = str.prog;

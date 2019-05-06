@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>bigBangToolBox</title>
+		<link rel="stylesheet" href="./sass/main.scss">
+		<!-- <link rel="stylesheet" href="./css/gwebfont.css"> -->
+	<body>
+		<div class="nav">
+			<div class="nav__btn">Story</div>
+			<div class="nav__btn nav__btn--active">Export</div>
+		</div>
+		<div class="container">
+			<form>
+				<div class="input-block">
+					<label class="input-block__label" for="super-prog">Prog:</label>
+					<input type="text" class="input-block__field" name="super-prog" id="super-prog">
+				</div>
+
+				<div class="input-block">
+						<label class="input-block__label" for="super-season">Temp:</label>
+						<input type="number" class="input-block__field" name="super-season" id="super-season">
+				</div>
+				
+				<div class="input-block">
+						<label class="input-block__label" for="super-epi">Epi:</label>
+						<input type="number" class="input-block__field" name="super-epi" id="super-epi">
+				</div>
+				<div class="input-block">
+						<label class="input-block__label" for="super-track">Pista:</label>
+						<input type="number" class="input-block__field" name="super-track" id="super-track">
+				</div>
+				
+
+				<div class="button-box">
+					<button class="btn" id="shotSupersBtn" >Shot Supers</button>
+				</div>
+
+				<div class="button-box">
+					<button class="btn" id="exportShotsBtn" >Export</button>
+				</div>
+
+				<h1>Prefs</h1>
+				<div class="input-block">
+					<label class="input-block__label" for="pref-prog">Prog:</label>
+					<input type="text" class="input-block__field" name="pref-prog" id="pref-prog">
+				</div>
+				<div class="input-block">
+					<label class="input-block__label" for="pref-season">Temp:</label>
+					<input type="number" class="input-block__field" name="pref-season" id="pref-season">
+				</div>
+				<div class="input-block">
+					<label class="input-block__label" for="pref-epi">Epi:</label>
+					<input type="number" class="input-block__field" name="pref-epi" id="pref-epi">
+				</div>
+				<div class="input-block">
+					<label class="input-block__label" for="pref-track">Supers Pista</label>
+					<input type="number" class="input-block__field" name="pref-track" id="pref-track">
+				</div>
+				<div class="button-box">
+					<button class="btn" id="savePrefs">Save Prefs</button>
+				</div>
+				
+
+			</form>
+			<div class="button-box">
+				<button class="btn" id="import-story">Import Story</button>
+			</div>
+
+		</div>
+				
+		<script type="text/javascript" src="./lib/CSInterface.js"></script>
+		<script type="text/javascript" src="./scripts/script.js"></script>    
+	</body>
+</html>

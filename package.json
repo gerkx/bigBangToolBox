@@ -8,12 +8,20 @@
   },
   "dependencies": {
     "fast-xml-parser": "^3.12.16",
+    "fs-extra": "^7.0.1",
     "xml-js": "^1.6.11",
     "xml2js": "^0.4.19"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "gulp": "^4.0.1",
+    "gulp-browserify": "^0.5.1",
+    "sass": "^1.20.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "sass ./sass/main.scss:ext/public/css/style.css --watch --style compressed",
+    "brow": "browserify ./scripts/script.js -o ./ext/public/scripts/script.js",
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",

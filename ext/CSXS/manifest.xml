@@ -6,7 +6,11 @@
 	ExtensionBundleName="bigBangToolBox">
 
 	<ExtensionList>
-		<Extension Id="bigBangToolBox.panel" Version="0.1.0" />
+		<Extension Id="bigBangToolBox.panel" Version="0.1.0">
+			<HostList>
+				<Host Name="PHXS" Port="8088"/> 
+			</HostList>
+		</Extension>
 	</ExtensionList>
 
 	<ExecutionEnvironment>
@@ -40,13 +44,9 @@
 					<Menu>Big Bang Toolbox</Menu>
 					<Geometry>
 						<Size>
-							<Height>500</Height>
-							<Width>500</Width>
+							<Height>400</Height>
+							<Width>400</Width>
 						</Size>
-						<!-- <MinSize>
-							<Height>517</Height>
-							<Width>221</Width>
-						</MinSize> -->
 					</Geometry>
 				</UI>
 			</DispatchInfo>
