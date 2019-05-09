@@ -13,14 +13,11 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "gulp": "^4.0.1",
-    "gulp-browserify": "^0.5.1",
     "sass": "^1.20.1"
   },
   "scripts": {
     "sass": "sass ./sass/main.scss:ext/public/css/style.css --watch --style compressed",
-    "brow": "browserify ./scripts/script.js -o ./ext/public/scripts/script.js",
+    "brow": "browserify ./scripts/app.js -o ./ext/public/scripts/app.js",
     "gulp": "gulp"
   },
   "repository": {
